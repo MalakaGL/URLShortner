@@ -14,7 +14,10 @@
         <form class="form-group" action="/add" th:action="@{/add}" method="post">
             <div class="form-group">
                 <label for="url">URL</label>
-                <input type="text" class="form-control" id="url" th:field="${shortURL.url}" />
+                <input type="url" class="form-control"
+                       placeholder="https://example.com/test"
+                       id="url"
+                       th:field="${shortURL.url}" th:required="required"/>
             </div>
             <button type="submit" class="btn btn-primary">Shorten</button>
             <a href="#" th:href="@{/}" class="btn btn-danger" role="button">Clear</a>
@@ -26,18 +29,20 @@
                     <th>URL</th>
                     <th>Short URL</th>
                     <th>Usage</th>
+                    <th>Last Accessed</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="shortURL, iter : ${shortURLsList}">
-                    <td th:text="${iter.index + 1}">1</td>
-                    <td th:text="${shortURL.url}">Test</td>
+                    <td th:text="${iter.index + 1}"></td>
+                    <td th:text="${shortURL.url}"></td>
                     <td>
                         <a href="/r/1"
                            th:href="@{/r/__${shortURL.shortURL}__}"
                            th:text="${'http://localhost:4555/r/' + shortURL.shortURL}"></a>
                     </td>
-                    <td>0</td>
+                    <td th:text="${shortURL.usage}"></td>
+                    <td th:text="${#dates.format(shortURL.lastAccessed, 'dd-MMM-yyyy hh:mm:ss')}"></td>
                 </tr>
             </tbody>
         </table>

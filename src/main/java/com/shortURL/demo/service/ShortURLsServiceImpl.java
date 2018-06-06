@@ -37,6 +37,11 @@ public class ShortURLsServiceImpl implements ShortURLsService {
     }
 
     @Override
+    public ShortURL updateShortURLs(ShortURL shortURL) {
+        return shortURLRepository.save(shortURL);
+    }
+
+    @Override
     public ShortURL findByShortURL(String shortURL) {
         return shortURLRepository.findByShortURL(shortURL);
     }

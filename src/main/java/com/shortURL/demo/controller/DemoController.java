@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Date;
+
 @Controller
 public class DemoController {
 
@@ -28,6 +30,9 @@ public class DemoController {
         String redirectURL = "http://localhost:4555/";
         ShortURL s = shortURLsService.findByShortURL(url);
         if (s != null) {
+            s.setLastAccessed(new Date());
+            s.setUsage(s.getUsage() + 1);
+            shortURLsService.updateShortURLs(s);
             redirectURL = s.getUrl();
         }
         model.addAttribute("shortURLsList", shortURLsService.findAll());

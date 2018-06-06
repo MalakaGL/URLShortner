@@ -5,12 +5,12 @@ import java.util.Date;
 
 @Entity
 public class ShortURL {
-
     @Id
     private String url;
 
-    @Column(length=10000)
     private String shortURL;
+    private int usage;
+    private Date lastAccessed;
 
     public ShortURL() {
     }
@@ -18,6 +18,8 @@ public class ShortURL {
     public ShortURL(String url, String shortURL) {
         this.url = url;
         this.shortURL = shortURL;
+        this.usage = 0;
+        this.lastAccessed = new Date();
     }
 
     public String getUrl() {
@@ -34,5 +36,21 @@ public class ShortURL {
 
     public void setShortURL(String shortURL) {
         this.shortURL = shortURL;
+    }
+
+    public int getUsage() {
+        return usage;
+    }
+
+    public void setUsage(int usage) {
+        this.usage = usage;
+    }
+
+    public Date getLastAccessed() {
+        return lastAccessed;
+    }
+
+    public void setLastAccessed(Date lastAccessed) {
+        this.lastAccessed = lastAccessed;
     }
 }

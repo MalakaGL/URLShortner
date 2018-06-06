@@ -12,5 +12,7 @@ public interface ShortURLsService {
 
     ShortURL saveShortURLs(String url);
 
+    ShortURL updateShortURLs(ShortURL shortURL);
+
     ShortURL findByShortURL(String url);
 }
