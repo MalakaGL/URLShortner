@@ -15,5 +15,6 @@ run below commands inside source root.
 
 ``
 mvn clean package
+
 java -jar .\target\ShortURL-1.0.000.jar
 ``
