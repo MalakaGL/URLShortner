@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Shorten URL</title>
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Shorten URL</h1>
+        <form class="form-group" action="/add" th:action="@{/add}" method="post">
+            <div class="form-group">
+                <label for="url">URL</label>
+                <input type="text" class="form-control" id="url" th:field="${shortURL.url}" />
+            </div>
+            <button type="submit" class="btn btn-primary">Shorten</button>
+            <a href="#" th:href="@{/}" class="btn btn-danger" role="button">Clear</a>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>URL</th>
+                    <th>Short URL</th>
+                    <th>Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="shortURL, iter : ${shortURLsList}">
+                    <td th:text="${iter.index + 1}">1</td>
+                    <td th:text="${shortURL.url}">Test</td>
+                    <td>
+                        <a href="/r/1"
+                           th:href="@{/r/__${shortURL.shortURL}__}"
+                           th:text="${'http://localhost:4555/r/' + shortURL.shortURL}"></a>
+                    </td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
