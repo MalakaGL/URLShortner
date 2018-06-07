@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @Controller
@@ -25,9 +26,11 @@ public class DemoController {
     }
 
     @RequestMapping(value={"/r","/r/{url}"}, method = RequestMethod.GET)
-    public RedirectView resolveShortURL(Model model, @PathVariable(required = false, name = "url") String url) {
+    public RedirectView resolveShortURL(Model model,
+                                        HttpServletRequest request,
+                                        @PathVariable(required = false, name = "url") String url) {
         RedirectView redirectView = new RedirectView();
-        String redirectURL = "http://localhost:4555/";
+        String redirectURL = request.getRequestURL().toString().replace(request.getRequestURI(), "");
         ShortURL s = shortURLsService.findByShortURL(url);
         if (s != null) {
             s.setLastAccessed(new Date());
