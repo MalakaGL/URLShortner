@@ -20,3 +20,5 @@ mvn clean package
 ``
 java -jar .\target\ShortURL-1.0.000.jar
 ``
+
+Tested with, Maven 3.5.3 and Java 1.8

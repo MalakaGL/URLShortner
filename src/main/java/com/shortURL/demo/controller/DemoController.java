@@ -18,8 +18,19 @@ public class DemoController {
     @Autowired
     ShortURLsService shortURLsService;
 
-    @RequestMapping(value="/")
+    @RequestMapping(value="/", method = RequestMethod.GET)
     public String urlList(Model model) {
+        model.addAttribute("shortURLsList", shortURLsService.findAll());
+        model.addAttribute("shortURL", new ShortURL());
+        return "shortURLsList";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String add(Model model, ShortURL shortURL) {
+        ShortURL s = shortURLsService.findOne(shortURL.getUrl());
+        if(s == null) {
+            shortURLsService.saveShortURLs(shortURL.getUrl());
+        }
         model.addAttribute("shortURLsList", shortURLsService.findAll());
         model.addAttribute("shortURL", new ShortURL());
         return "shortURLsList";
@@ -41,16 +52,5 @@ public class DemoController {
         model.addAttribute("shortURLsList", shortURLsService.findAll());
         redirectView.setUrl(redirectURL);
         return redirectView;
-    }
-
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(Model model, ShortURL shortURL) {
-        ShortURL s = shortURLsService.findOne(shortURL.getUrl());
-        if(s == null) {
-            shortURLsService.saveShortURLs(shortURL.getUrl());
-        }
-        model.addAttribute("shortURLsList", shortURLsService.findAll());
-        model.addAttribute("shortURL", new ShortURL());
-        return "shortURLsList";
     }
 }
