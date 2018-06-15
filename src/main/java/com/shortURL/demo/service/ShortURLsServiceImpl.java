@@ -22,7 +22,7 @@ public class ShortURLsServiceImpl implements ShortURLsService {
 
     @Override
     public ShortURL findOne(String id) {
-        return shortURLRepository.findById(id);
+        return shortURLRepository.findOne(id);
     }
 
     @Override

@@ -7,10 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ShortURLRepository extends JpaRepository<ShortURL, Long> {
-    @Query("select s from ShortURL s where s.url = :url")
-    ShortURL findById(@Param("url") String url);
-
+public interface ShortURLRepository extends JpaRepository<ShortURL, String> {
     @Query("select s from ShortURL s where s.shortURL = :shortURL")
     ShortURL findByShortURL(@Param("shortURL") String shortURL);
 }
